@@ -9,8 +9,10 @@ namespace BlockchainHub.BlockExplorer.Controllers
     public class MainController : Controller
     {
         [Route("")]
-        public ActionResult Index()
+        public ActionResult Index(string search = null)
         {
+            if(string.IsNullOrWhiteSpace(search))
+                return View();
             return View();
         }
 

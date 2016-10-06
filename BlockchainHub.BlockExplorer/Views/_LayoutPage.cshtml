@@ -45,6 +45,14 @@
                                         </div>
                                     </ul>
                                 </li>
+                                @if(ViewBag.HideSearchButton == null || ViewBag.HideSearchButton)
+                                {
+                                    <li>
+                                        <a href="#" class="search-show">
+                                            <input type="text" class="form-control search-mobile" placeholder="Search"><img src="img/search.png">
+                                        </a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -54,7 +62,9 @@
                             <h1>BITCOIN BLOCKCHAIN</h1>
                             <h2>real time finance</h2>
                             <div class="search-main-container">
-                                <input type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash">
+                                <form action="/" method="post">
+                                    <input name="search" type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash" />
+                                </form>
                                 <img class="search-black-main" src="img/search-black.png" />
                             </div>
                             <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
@@ -66,12 +76,14 @@
                             <h1>@ViewBag.HeaderTitle</h1>
                             <h2>real time finance</h2>
                         </div>
-                     }
+                    }
                 </div>
                 <div class="header-search-view">
                     <div class="header-search-block">
                         <img src="img/logo.png" />
-                        <input type="text" class="form-control search" placeholder="Enter block, address, block hash, transaction hash">
+                        <form action="/" method="post">
+                            <input id="search" type="text" class="form-control search" placeholder="Enter block, address, block hash, transaction hash">
+                        </form>
                         <img class="search-black" src="img/search-black.png" />
                         <img class="search-quit" src="img/search-quit.png" />
                     </div>
