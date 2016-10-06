@@ -89,11 +89,60 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="img\arrow-double.png" />
+    <Content Include="img\arrow-down.png" />
+    <Content Include="img\arrow-left-blue.png" />
+    <Content Include="img\arrow-left-white.png" />
+    <Content Include="img\arrow-right-blue.png" />
+    <Content Include="img\arrow-right-white.png" />
+    <Content Include="img\arrow-up.png" />
+    <Content Include="img\arrow.png" />
+    <Content Include="img\bookmark.png" />
+    <Content Include="img\chain.png" />
+    <Content Include="img\clock-icon-white.png" />
+    <Content Include="img\clock-icon.png" />
+    <Content Include="img\header-bg-big.jpg" />
+    <Content Include="img\header-bg.jpg" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\offer-1.png" />
+    <Content Include="img\offer-2.png" />
+    <Content Include="img\offer-3.png" />
+    <Content Include="img\qr-example.png" />
+    <Content Include="img\report-issue-hover.png" />
+    <Content Include="img\report-issue.png" />
+    <Content Include="img\search-black.png" />
+    <Content Include="img\search-quit.png" />
+    <Content Include="img\search.png" />
+    <Content Include="Content\style.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="fonts\Roboto-Bold.ttf" />
+    <Content Include="fonts\Roboto-Light.ttf" />
+    <Content Include="fonts\Roboto-Regular.ttf" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Web.config" />
+    <Content Include="Views\Main\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -102,6 +151,8 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
+    <Content Include="Views\_LayoutPage.cshtml" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -111,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

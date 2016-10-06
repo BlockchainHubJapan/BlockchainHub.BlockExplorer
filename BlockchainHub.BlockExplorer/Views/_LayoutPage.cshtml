@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="Content/bootstrap.min.css">
+    <link rel="stylesheet" href="Content/style.css">
+    <!-- Scripts -->
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/main.js"></script>
+</head>
+<body>
+    <div id="mobile-version"></div>
+    <div id="header-outside">
+        <div class="website-container">
+            <div id="header-inside">
+                <div class="header-default-view">
+                    <div class="navbar navbar-static-top">
+                        <div class="navbar-header">
+                            <a href="" class="navbar-brand" onclick='location.reload(true); return false;'>
+                                <img class="website-logo" src="img/logo.png" />
+                            </a>
+                            <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse navHeaderCollapse">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="active"><a href="#">API</a></li>
+                                <li><a href="#">EXPLORER</a></li>
+                                <li class="show-dropdown-menu">
+                                    <a data-toggle="collapse" data-target=".custom-dropdown-menu" href="#">BTC<span class="arrow"></span></a>
+                                    <ul class="custom-dropdown-menu">
+                                        <div class="add-space"></div>
+                                        <div class="white-block">
+                                            <li><a href="#">AUD 235</a></li>
+                                            <li><a href="#">CAD 335</a></li>
+                                            <li><a href="#">USD 235</a></li>
+                                            <li><a href="#">EUR 214</a></li>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="header-block header-block-big text-center">
+                        <h1>BITCOIN BLOCKCHAIN</h1>
+                        <h2>real time finance</h2>
+                        <div class="search-main-container">
+                            <input type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash">
+                            <img class="search-black-main" src="img/search-black.png" />
+                        </div>
+                        <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
+                    </div>
+                </div>
+                <div class="header-search-view">
+                    <div class="header-search-block">
+                        <img src="img/logo.png" />
+                        <input type="text" class="form-control search" placeholder="Enter block, address, block hash, transaction hash">
+                        <img class="search-black" src="img/search-black.png" />
+                        <img class="search-quit" src="img/search-quit.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+</body>
+</html>
