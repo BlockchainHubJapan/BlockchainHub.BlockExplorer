@@ -153,6 +153,9 @@
     <Content Include="packages.config" />
     <Content Include="Views\_LayoutPage.cshtml" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="Views\Main\Block.cshtml" />
+    <Content Include="Views\Main\Transaction.cshtml" />
+    <Content Include="Views\Main\Address.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

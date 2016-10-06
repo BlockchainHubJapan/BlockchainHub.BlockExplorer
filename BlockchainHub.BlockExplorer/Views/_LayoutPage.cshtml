@@ -48,15 +48,25 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="header-block header-block-big text-center">
-                        <h1>BITCOIN BLOCKCHAIN</h1>
-                        <h2>real time finance</h2>
-                        <div class="search-main-container">
-                            <input type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash">
-                            <img class="search-black-main" src="img/search-black.png" />
+                    @if(ViewBag.HeaderTitle == null)
+                    {
+                        <div class="header-block header-block-big text-center">
+                            <h1>BITCOIN BLOCKCHAIN</h1>
+                            <h2>real time finance</h2>
+                            <div class="search-main-container">
+                                <input type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash">
+                                <img class="search-black-main" src="img/search-black.png" />
+                            </div>
+                            <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
                         </div>
-                        <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="header-block">
+                            <h1>@ViewBag.HeaderTitle</h1>
+                            <h2>real time finance</h2>
+                        </div>
+                     }
                 </div>
                 <div class="header-search-view">
                     <div class="header-search-block">
@@ -70,5 +80,57 @@
         </div>
     </div>
     @RenderBody()
+    <div id="footer-outside">
+        <div class="website-container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="footer-img-container"><img src="img/logo.png" /></div>
+                    <div class="copyright">© 2016 BlockchainHub</div>
+                </div>
+
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-menu-header">COMPANY</div>
+                    <div class="footer-menu-item"><a href="#">About us</a></div>
+                    <div class="footer-menu-item"><a href="#">Services</a></div>
+                    <div class="footer-menu-item"><a href="#">FAQ</a></div>
+                    <div class="footer-menu-item"><a href="#">Contact</a></div>
+                </div>
+
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-menu-header">LEARN</div>
+                    <div class="footer-menu-item"><a href="#">Buy Bitcoin</a></div>
+                    <div class="footer-menu-item"><a href="#">Buy ether</a></div>
+                    <div class="footer-menu-item"><a href="#">Supported countries</a></div>
+                    <div class="footer-menu-item"><a href="#">Status</a></div>
+                </div>
+
+                <div class="col-lg-2 col-sm-6">
+                    <div class="footer-menu-header">SOCIAL MEDIA</div>
+                    <div class="footer-menu-item"><a href="#">Facebook</a></div>
+                    <div class="footer-menu-item"><a href="#">Linkedin</a></div>
+                    <div class="footer-menu-item"><a href="#">Twitter</a></div>
+                    <div class="footer-menu-item"><a href="#">Google Plus</a></div>
+                </div>
+
+                <div class="col-lg-2 col-sm-6">
+                    <div class="text-right align-center-lg">
+                        <div class="footer-menu-header" style="padding-right: 12px">LANGUAGES</div>
+                        <span class="languages">
+                            <select>
+                                <option>English</option>
+                                <option>Japanese</option>
+                            </select>
+
+                            <div class="languages-hover">
+                                <div><a href="#"><strong>English</strong></a></div>
+                                <div><a href="#">Japanese</a></div>
+                            </div>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
