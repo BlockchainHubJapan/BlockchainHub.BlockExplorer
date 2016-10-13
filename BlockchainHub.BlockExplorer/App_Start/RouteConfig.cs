@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BlockchainHub.BlockExplorer.ModelBinders;
+using NBitcoin;
+using QBitNinja.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +23,10 @@ namespace BlockchainHub.BlockExplorer
             //);
 
             routes.MapMvcAttributeRoutes();
-        }
+
+			System.Web.Mvc.ModelBinders.Binders.Add(typeof(uint160), new UInt160ModelBinder());
+			System.Web.Mvc.ModelBinders.Binders.Add(typeof(uint256), new UInt256ModelBinder());
+			System.Web.Mvc.ModelBinders.Binders.Add(typeof(BlockFeature), new BlockFeatureModelBinder());
+		}
     }
 }

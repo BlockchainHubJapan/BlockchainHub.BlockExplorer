@@ -22,7 +22,7 @@
         <tbody>
             @foreach(var block in Model.Blocks)
             {
-                <tr class="clickable-row" data-href="@Url.Action("Block", new { blockId = block.Hash })">
+                <tr class="clickable-row" data-href="@Url.Action("Block", new { blockFeature = block.Hash })">
                     <td>@block.Height</td>
                     <td>@block.Time</td>
                     <td class="hidden-xs">@block.TransactionsCount</td>

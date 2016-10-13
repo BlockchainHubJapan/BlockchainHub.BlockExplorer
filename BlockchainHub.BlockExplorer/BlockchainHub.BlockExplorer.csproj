@@ -160,6 +160,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ModelBinders\BlockFeatureModelBinder.cs" />
+    <Compile Include="ModelBinders\UInt256ModelBinder.cs" />
+    <Compile Include="Models\BlockModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

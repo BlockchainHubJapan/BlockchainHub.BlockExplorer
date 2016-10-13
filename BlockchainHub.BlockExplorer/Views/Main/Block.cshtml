@@ -1,4 +1,4 @@
-﻿
+﻿@model BlockchainHub.BlockExplorer.Models.BlockModel
 @{
     ViewBag.Title = "Block";
     Layout = "~/Views/_LayoutPage.cshtml";
@@ -6,41 +6,42 @@
 }
 
 <div class="website-container">
-    <div class="navigator">Home &nbsp/ &nbspBlock 426320</div>
+    <div class="navigator">Home &nbsp/ &nbspBlock @Model.Height</div>
 
     <div class="panel panel-custom panel-blue">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="panel-heading-address-left">
-                        462320
-                        <div class="transaction-date"><img src="~/img/clock-icon-white.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
+                        @Model.Height
+                        <div class="transaction-date"><img src="~/img/clock-icon-white.png" /><span>@Model.BlockTime.ToString("F")</span></div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="panel-heading-address-right text-right sm-text-left">9,744.71502887 BTC</div>
-                </div>
+                @*<div class="col-sm-6">
+                        <div class="panel-heading-address-right text-right sm-text-left">@Model.TotalTransacted BTC</div>
+                    </div>*@
             </div>
 
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="bitcoin-address-info-record"><strong>Height</strong><span class="float-right color-gray">426320</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Block time</strong><span class="float-right color-gray">2016-08-22 09:45:54</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Trades sum</strong><span class="float-right color-gray">7,860.51947660 BTC</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Nb txs</strong><span class="float-right color-gray">1200</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Difficulty</strong><span class="float-right color-gray">217,375,482,757.24</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Fee</strong><span class="float-right color-gray">0.74751530 BTC</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Hash</strong><span class="float-right color-gray">0000000000000000016c0bae1e059f</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Height</strong><span class="float-right color-gray">@Model.Height</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Block time</strong><span class="float-right color-gray">@Model.BlockTime.ToString("F")</span></div>
+                    @*<div class="bitcoin-address-info-record"><strong>Trades sum</strong><span class="float-right color-gray">@Model.TotalTransacted BTC</span></div>*@
+                    <div class="bitcoin-address-info-record"><strong>Transactions count</strong><span class="float-right color-gray">@Model.TransactionCount</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Difficulty</strong><span class="float-right color-gray">@Model.Difficulty</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Fee</strong><span class="float-right color-gray">@Model.Fee</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Hash</strong><span class="float-right color-gray">@Model.Hash</span></div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bitcoin-address-info-record"><strong>Version</strong><span class="float-right color-gray">127</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Confirmations</strong><span class="float-right color-gray">1</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Merkle root</strong><span class="float-right color-gray">3ddf5875d7fb7fb464e763546b794d3de</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Prev block hash</strong><span class="float-right color-blue" style="text-decoration: underline">000000000000000003e1086f3afa40209e</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Size</strong><span class="float-right color-gray">974.83 kB</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Coin days destroyed</strong><span class="float-right color-gray">4,957.98</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Version</strong><span class="float-right color-gray">@Model.Version</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Confirmations</strong><span class="float-right color-gray">@Model.Confirmations</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Merkle root</strong><span class="float-right color-gray">@Model.MerkleRoot</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Prev block hash</strong><span class="float-right color-blue" style="text-decoration: underline">@Model.Previous</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Size</strong><span class="float-right color-gray">@Model.Size</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Stripped size</strong><span class="float-right color-gray">@Model.StrippedSize</span></div>
+                    @*<div class="bitcoin-address-info-record"><strong>Coin days destroyed</strong><span class="float-right color-gray">4,957.98</span></div>*@
                 </div>
             </div>
             <div class="report-an-issue-container">
@@ -50,7 +51,7 @@
         </div>
     </div>
 
-    <div class="text-big">TRANSACTIONS <span class="text-small">(for Block 426320)</span></div>
+    <div class="text-big">TRANSACTIONS <span class="text-small">(for Block @Model.Height)</span></div>
 
 
 
@@ -59,345 +60,93 @@
 
 
     <div class="panel-group accordion-custom accordion-block" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading c-1" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                <div class="row">
-                    <div class="col-md-7">
-                        <span class="transaction-coinbase">coinbase</span>
-                        <span class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</span>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
+        @foreach(var transaction in Model.Transactions)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading c-1" data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + transaction.Index)">
+                    <div class="row">
+                        <div class="col-md-7">
+                            @if(transaction.IsCoinbase)
+                            {<span class="transaction-coinbase">coinbase</span>}
+                            <span class="transaction-id">@transaction.Hash</span>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="text-right md-text-left">
+                                <div class="transaction-btc">@transaction.Amount</div>
+                            </div>
                         </div>
                     </div>
+                    <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + transaction.Index)"><div class="accordion-arrow arrow-double"></div></a>
                 </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="additional-margin">
-                        <span class="transaction-id"><strong>35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</strong></span>
-                    </div>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><div class="accordion-arrow arrow-up"></div></a>
-
-                    <div class="accordion-block-margin-fix">
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4 color-blue">
-                                1KkBAX1Kqsb6pWrfFN9SHAceSfBe1T86Qf
-                            </div>
-
-                            <div class="col-lg-2">
-                                2,9999
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
+                <div id="@("collapse" + transaction.Index)" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="additional-margin">
+                            <span class="transaction-id"><strong>@transaction.Hash</strong></span>
                         </div>
+                        <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + transaction.Index)"><div class="accordion-arrow arrow-up"></div></a>
 
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4">
+                        <div class="accordion-block-margin-fix">
+
+
+                            <div class="row accordion-row-margin-bot">
+                                @foreach(var input in transaction.Inputs)
+                                {
+                                    <div class="col-lg-4 color-blue">
+                                        @input.ScriptPubKey
+                                    </div>
+
+                                    <div class="col-lg-2">
+                                        @input.Amount
+                                    </div>}
                             </div>
 
-                            <div class="col-lg-2">
-                            </div>
+                            <div class="row accordion-row-margin-bot">
+                                @foreach(var output in transaction.Outputs)
+                                {
+                                    <div class="col-lg-4">
+                                    </div>
 
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
+                                    <div class="col-lg-2">
+                                    </div>
 
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
+                                    <div class="col-lg-4 color-blue">
+                                        @output.ScriptPubKey
+                                </div>
+
+                                <div class="col-lg-2 text-right lg-text-left">
+                                    @output.Amount
+                                </div>}
+
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="days-destroyed">Days destroyed: 0.46</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="float-right">
-                                    <table>
-                                        <thead></thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Fee:</strong></td>
-                                                <td>0.00100000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="color-blue"><strong>Transaction sum:</strong></td>
-                                                <td class="color-blue"><strong>0.52202655</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    @*<div class="days-destroyed">Days destroyed: 0.46</div>*@
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="float-right">
+                                        <table>
+                                            <thead></thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Fee:</strong></td>
+                                                    <td>@transaction.Fee</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="color-blue"><strong>Transaction sum:</strong></td>
+                                                    <td class="color-blue"><strong>@transaction.Amount</strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading c-2" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                <div class="row">
-                    <div class="col-md-7">
-                        <span class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</span>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="additional-margin">
-                        <span class="transaction-id"><strong>35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</strong></span>
-                    </div>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><div class="accordion-arrow arrow-up"></div></a>
-
-                    <div class="accordion-block-margin-fix">
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4 color-blue">
-                                1KkBAX1Kqsb6pWrfFN9SHAceSfBe1T86Qf
-                            </div>
-
-                            <div class="col-lg-2">
-                                2,9999
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4">
-                            </div>
-
-                            <div class="col-lg-2">
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="days-destroyed">Days destroyed: 0.46</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="float-right">
-                                    <table>
-                                        <thead></thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Fee:</strong></td>
-                                                <td>0.00100000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="color-blue"><strong>Transaction sum:</strong></td>
-                                                <td class="color-blue"><strong>0.52202655</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading c-3" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                <div class="row">
-                    <div class="col-md-7">
-                        <span class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</span>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="additional-margin">
-                        <span class="transaction-id"><strong>35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</strong></span>
-                    </div>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><div class="accordion-arrow arrow-up"></div></a>
-
-                    <div class="accordion-block-margin-fix">
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4 color-blue">
-                                1KkBAX1Kqsb6pWrfFN9SHAceSfBe1T86Qf
-                            </div>
-
-                            <div class="col-lg-2">
-                                2,9999
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4">
-                            </div>
-
-                            <div class="col-lg-2">
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="days-destroyed">Days destroyed: 0.46</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="float-right">
-                                    <table>
-                                        <thead></thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Fee:</strong></td>
-                                                <td>0.00100000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="color-blue"><strong>Transaction sum:</strong></td>
-                                                <td class="color-blue"><strong>0.52202655</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading c-4" data-toggle="collapse" data-parent="#accordion" href="#collapse4">
-                <div class="row">
-                    <div class="col-md-7">
-                        <span class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</span>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="additional-margin">
-                        <span class="transaction-id"><strong>35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</strong></span>
-                    </div>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><div class="accordion-arrow arrow-up"></div></a>
-
-                    <div class="accordion-block-margin-fix">
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4 color-blue">
-                                1KkBAX1Kqsb6pWrfFN9SHAceSfBe1T86Qf
-                            </div>
-
-                            <div class="col-lg-2">
-                                2,9999
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-
-                        <div class="row accordion-row-margin-bot">
-                            <div class="col-lg-4">
-                            </div>
-
-                            <div class="col-lg-2">
-                            </div>
-
-                            <div class="col-lg-4 color-blue">
-                                1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                            </div>
-
-                            <div class="col-lg-2 text-right lg-text-left">
-                                0.10274575
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="days-destroyed">Days destroyed: 0.46</div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="float-right">
-                                    <table>
-                                        <thead></thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong>Fee:</strong></td>
-                                                <td>0.00100000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="color-blue"><strong>Transaction sum:</strong></td>
-                                                <td class="color-blue"><strong>0.52202655</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 
-    <div class="text-center load-more-container"><span class="load-more noselect">Load more</span></div>
+    <div class="text-center load-more-container"><a href="?count=@Model.NextCount"><span class="load-more noselect">Load more</span></a></div>
 </div>
-
-
