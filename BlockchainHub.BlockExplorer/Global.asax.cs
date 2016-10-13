@@ -14,5 +14,10 @@ namespace BlockchainHub.BlockExplorer
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
-    }
+
+		protected void Application_BeginRequest()
+		{
+			System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+		}
+	}
 }

@@ -159,8 +159,8 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			number.CurrencyDecimalSeparator = culture.NumberFormat.CurrencyDecimalSeparator;
 			number.CurrencyGroupSeparator = culture.NumberFormat.CurrencyGroupSeparator;
 			number.CurrencyGroupSizes = culture.NumberFormat.CurrencyGroupSizes;
-			number.CurrencyNegativePattern = culture.NumberFormat.CurrencyNegativePattern;
-			number.CurrencyPositivePattern = culture.NumberFormat.CurrencyPositivePattern;
+			number.CurrencyNegativePattern = 8; //culture.NumberFormat.CurrencyNegativePattern;
+			number.CurrencyPositivePattern = 3; //culture.NumberFormat.CurrencyPositivePattern;
 			number.NegativeSign = culture.NumberFormat.NegativeSign;
 			return amount.ToString("C", number);
 		}
