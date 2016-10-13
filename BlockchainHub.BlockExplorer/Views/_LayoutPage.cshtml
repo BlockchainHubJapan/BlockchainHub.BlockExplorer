@@ -1,8 +1,11 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>@ViewBag.Title</title>
     <!-- Styles -->
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
@@ -45,14 +48,13 @@
                                         </div>
                                     </ul>
                                 </li>
-                                @if(ViewBag.HideSearchButton == null || ViewBag.HideSearchButton)
+                                @if(ViewBag.HideSearchButton == null || !ViewBag.HideSearchButton)
                                 {
                                     <li>
                                         <a href="#" class="search-show">
                                             <input type="text" class="form-control search-mobile" placeholder="Search"><img src="~/img/search.png">
                                         </a>
-                                    </li>
-                                }
+                                    </li>}
                             </ul>
                         </div>
                     </div>
@@ -62,26 +64,24 @@
                             <h1>BITCOIN BLOCKCHAIN</h1>
                             <h2>real time finance</h2>
                             <div class="search-main-container">
-                                <form action="/" method="post">
+                                <form action="/" method="post" style="display:inline;">
                                     <input name="search" type="text" class="form-control search-main" placeholder="Enter block, address, block hash, transaction hash" />
                                 </form>
                                 <img class="search-black-main" src="~/img/search-black.png" />
                             </div>
                             <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
-                        </div>
-                    }
+                        </div>}
                     else
                     {
                         <div class="header-block">
                             <h1>@ViewBag.HeaderTitle</h1>
                             <h2>real time finance</h2>
-                        </div>
-                    }
+                        </div>}
                 </div>
                 <div class="header-search-view">
                     <div class="header-search-block">
                         <img src="~/img/logo.png" />
-                        <form action="/" method="post">
+                        <form action="/" method="post" style="display:inline;">
                             <input id="search" type="text" class="form-control search" placeholder="Enter block, address, block hash, transaction hash">
                         </form>
                         <img class="search-black" src="~/img/search-black.png" />
