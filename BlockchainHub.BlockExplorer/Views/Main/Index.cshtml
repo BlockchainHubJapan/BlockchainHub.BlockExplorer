@@ -1,4 +1,4 @@
-﻿
+﻿@model BlockchainHub.BlockExplorer.Models.MainModel
 @{
     ViewBag.Title = "BlockchainHub's Block Explorer";
     Layout = "~/Views/_LayoutPage.cshtml";
@@ -20,45 +20,20 @@
         <th style="width: 15%" class="hidden-md hidden-sm hidden-xs">Size (kb)</th>
         </thead>
         <tbody>
-            <tr>
-                <td>42687</td>
-                <td>6 minutes ago</td>
-                <td class="hidden-xs">2175</td>
-                <td class="hidden-sm hidden-xs">0.56629432</td>
-                <td class="hidden-md hidden-sm hidden-xs">974.75 kB</td>
-            </tr>
-            <tr>
-                <td>42687</td>
-                <td>6 minutes ago</td>
-                <td class="hidden-xs">2175</td>
-                <td class="hidden-sm hidden-xs">0.56629432</td>
-                <td class="hidden-md hidden-sm hidden-xs">974.75 kB</td>
-            </tr>
-            <tr>
-                <td>42687</td>
-                <td>6 minutes ago</td>
-                <td class="hidden-xs">2175</td>
-                <td class="hidden-sm hidden-xs">0.56629432</td>
-                <td class="hidden-md hidden-sm hidden-xs">974.75 kB</td>
-            </tr>
-            <tr>
-                <td>42687</td>
-                <td>6 minutes ago</td>
-                <td class="hidden-xs">2175</td>
-                <td class="hidden-sm hidden-xs">0.56629432</td>
-                <td class="hidden-md hidden-sm hidden-xs">974.75 kB</td>
-            </tr>
-            <tr>
-                <td>42687</td>
-                <td>6 minutes ago</td>
-                <td class="hidden-xs">2175</td>
-                <td class="hidden-sm hidden-xs">0.56629432</td>
-                <td class="hidden-md hidden-sm hidden-xs">974.75 kB</td>
-            </tr>
+            @foreach(var block in Model.Blocks)
+            {
+                <tr class="clickable-row" data-href="@Url.Action("Block", new { blockId = block.Hash })">
+                    <td>@block.Height</td>
+                    <td>@block.Time</td>
+                    <td class="hidden-xs">@block.TransactionsCount</td>
+                    <td class="hidden-sm hidden-xs">@block.Fees</td>
+                    <td class="hidden-md hidden-sm hidden-xs">@block.Size</td>
+                </tr>
+            }            
         </tbody>
     </table>
 
-    <div class="text-center load-more-container"><span class="load-more noselect">Load more</span></div>
+    <div class="text-center load-more-container"><a href="~/?count=@Model.NextCount"><span class="load-more noselect">Load more</span></a></div>
 </div>
 
 <div class="bg-white">
@@ -140,3 +115,11 @@
 
     <div class="offer-space"></div>
 </div>
+
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
+        });
+    });
+</script>

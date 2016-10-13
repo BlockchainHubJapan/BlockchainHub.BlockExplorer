@@ -48,6 +48,18 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NBitcoin, Version=3.0.0.51, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NBitcoin.3.0.0.51\lib\net45\NBitcoin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="QBitNinja.Client, Version=1.0.3.29, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QBitNinja.Client.1.0.3.29\lib\net45\QBitNinja.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -131,6 +143,8 @@
     <Content Include="fonts\Roboto-Bold.ttf" />
     <Content Include="fonts\Roboto-Light.ttf" />
     <Content Include="fonts\Roboto-Regular.ttf" />
+    <None Include="Properties\PublishProfiles\bch-blockexplorer - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\bch-blockexplorer - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -146,6 +160,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\MainModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
