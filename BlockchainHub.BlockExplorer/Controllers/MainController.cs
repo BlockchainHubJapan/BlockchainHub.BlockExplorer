@@ -14,7 +14,24 @@ namespace BlockchainHub.BlockExplorer.Controllers
 {
 	public class MainController : Controller
 	{
-		QBitNinjaClient QBit = new QBitNinjaClient(Network.Main);
+		QBitNinjaClient _QBit;
+		QBitNinjaClient QBit
+		{
+			get
+			{
+				if(_QBit == null && Request?.Url != null)
+				{
+					_QBit = new QBitNinjaClient(Network.Main);
+					if(Request.Url.Host.StartsWith("tbtc"))
+						_QBit = new QBitNinjaClient(Network.TestNet);
+				}
+				return _QBit;
+			}
+		}
+		public MainController()
+		{
+		}
+
 
 		[Route("")]
 		public async Task<ActionResult> Index(string search = null, int count = 5)
@@ -49,18 +66,23 @@ namespace BlockchainHub.BlockExplorer.Controllers
 		private string ToRelative(DateTimeOffset time)
 		{
 			var ago = DateTimeOffset.UtcNow - time;
+			bool negative = ago < TimeSpan.Zero;
+			ago = negative ? -ago : ago;
+			string result;
 			if(ago.TotalMinutes < 1.0)
 			{
-				return (int)(ago.TotalSeconds) + " seconds ago";
+				result = (int)(ago.TotalSeconds) + " seconds ago";
 			}
 			else if(ago.TotalHours < 1.0)
 			{
-				return (int)(ago.TotalMinutes) + " minutes ago";
+				result =(int)(ago.TotalMinutes) + " minutes ago";
 			}
 			else
 			{
-				return (int)(ago.TotalHours) + " h, " + (ago.Minutes) + " min ago";
+				result = (int)(ago.TotalHours) + " h, " + (ago.Minutes) + " min ago";
 			}
+			result = negative ? "-" + result : result;
+			return result;
 		}
 
 		private string ToKB(int size)
@@ -106,10 +128,10 @@ namespace BlockchainHub.BlockExplorer.Controllers
 
 			int i = 0;
 			foreach(var tx in transactions)
-			{			
+			{
 				BlockTransactionModel txModel = new BlockTransactionModel()
 				{
-					Amount = ToString(tx.ReceivedCoins.Select(c=>(Money)c.Amount).Sum()),
+					Amount = ToString(tx.ReceivedCoins.Select(c => (Money)c.Amount).Sum()),
 					Fee = ToString(tx.Fees),
 					Hash = tx.TransactionId,
 					IsCoinbase = i == 0,
@@ -118,7 +140,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 
 				txModel.Inputs = ToParts(tx.SpentCoins);
 				txModel.Outputs = ToParts(tx.ReceivedCoins);
-				
+
 				model.Transactions.Add(txModel);
 				i++;
 			}

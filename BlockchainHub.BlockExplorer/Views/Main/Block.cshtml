@@ -80,52 +80,43 @@
                 </div>
                 <div id="@("collapse" + transaction.Index)" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <div class="additional-margin">
+                        @*<div class="additional-margin">
                             <span class="transaction-id"><strong>@transaction.Hash</strong></span>
-                        </div>
+                        </div>*@
                         <a data-toggle="collapse" data-parent="#accordion" href="@("#collapse" + transaction.Index)"><div class="accordion-arrow arrow-up"></div></a>
 
                         <div class="accordion-block-margin-fix">
 
-
-                            <div class="row accordion-row-margin-bot">
-                                @foreach(var input in transaction.Inputs)
-                                {
+                            @for(int i = 0; i < Math.Max(transaction.Inputs.Count, transaction.Outputs.Count); i++)
+                            {
+                                var input = transaction.Inputs.Skip(i).FirstOrDefault();
+                                var output = transaction.Outputs.Skip(i).FirstOrDefault();
+                                <div class="row accordion-row-margin-bot">
+                                    
                                     <div class="col-lg-4 color-blue">
-                                        @input.ScriptPubKey
+                                        @(input == null ? " " : input.ScriptPubKey)
                                     </div>
 
-                                    <div class="col-lg-2">
-                                        @input.Amount
-                                    </div>}
-                            </div>
-
-                            <div class="row accordion-row-margin-bot">
-                                @foreach(var output in transaction.Outputs)
-                                {
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-2" style="text-align:end">
+                                        @(input == null ? " " : "-" + input.Amount)
                                     </div>
-
-                                    <div class="col-lg-2">
-                                    </div>
-
                                     <div class="col-lg-4 color-blue">
-                                        @output.ScriptPubKey
-                                </div>
+                                        @(output == null ? " " : output.ScriptPubKey)
+                                    </div>
 
-                                <div class="col-lg-2 text-right lg-text-left">
-                                    @output.Amount
+                                    <div class="col-lg-2 text-right lg-text-left" style="text-align:end;padding-right: 55px;">
+                                        @(output == null ? " " : output.Amount)
+                                    </div>
                                 </div>}
 
-                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-6">
                                     @*<div class="days-destroyed">Days destroyed: 0.46</div>*@
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="float-right">
-                                        <table>
+                                    <div class="float-right" style="padding-right:45px;">
+                                        <table style="text-align:end;">
                                             <thead></thead>
                                             <tbody>
                                                 <tr>
