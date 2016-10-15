@@ -6,7 +6,11 @@
 }
 
 <div class="website-container">
-    <div class="navigator">Home &nbsp/ @(Model.BlockHeight == null ? "" : " Block " + Model.BlockHeight.Value + " /")&nbspTx: @Model.Hash</div>
+    <div class="navigator">Home &nbsp/ 
+    @if(Model.BlockHeight != null)
+    {
+        <span><a href="~/blocks/@Model.BlockHeight.Value">Block @Model.BlockHeight.Value</a> &nbsp/</span>
+    }&nbspTx: @Model.Hash</div>
 
     <div class="panel panel-custom panel-blue">
         <div class="panel-heading panel-heading-green">
@@ -30,7 +34,7 @@
                     <div class="bitcoin-address-info-record"><strong>Output Amount</strong><span class="float-right color-gray">@Model.OutputAmount</span></div>
                     @if(Model.BlockHeight != null)
                     {
-                        <div class="bitcoin-address-info-record"><strong>Included in Block</strong><span class="float-right color-gray">@Model.BlockHeight.Value</span></div>}
+                        <div class="bitcoin-address-info-record"><strong>Included in Block</strong><span class="float-right"><a href="~/blocks/@Model.BlockHeight.Value">@Model.BlockHeight.Value</a></span></div>}
                     <div class="bitcoin-address-info-record"><strong>Fee</strong><span class="float-right color-gray">@Model.Fee</span></div>
                     <div class="bitcoin-address-info-record"><strong>Fee rate</strong><span class="float-right color-gray">@Model.FeeRate</span></div>
                 </div>
@@ -43,7 +47,7 @@
             </div>
             <div class="report-an-issue-container">
                 <a href="#" class="report-an-issue"><div class="report-issue-img"></div>Report an issue</a>
-                <a href="#" class="float-right bookmark"><span class="color-gray bookmark-span">bookmark</span> <img src="img/bookmark.png" /></a>
+                <a href="#" class="float-right bookmark"><span class="color-gray bookmark-span">bookmark</span> <img src="~/img/bookmark.png" /></a>
             </div>
         </div>
     </div>

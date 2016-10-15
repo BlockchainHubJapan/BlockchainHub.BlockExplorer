@@ -28,7 +28,7 @@ html, body
 
 a, a:hover
 {
-	color: initial;
+	/*color: initial;*/
 }
 
 #mobile-version

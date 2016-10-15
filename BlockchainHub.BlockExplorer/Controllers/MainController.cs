@@ -88,7 +88,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 
 		private string ToKB(int size)
 		{
-			decimal kb = (decimal)size / 1000.0m;
+			decimal kb = (decimal)size / 1024.0m;
 			kb = decimal.Round(kb, 3);
 			return kb + " kB";
 		}
