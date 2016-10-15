@@ -5,6 +5,7 @@ using QBitNinja.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -187,10 +188,46 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			return amount.ToString("C", number);
 		}
 
-		[Route("transactions")]
-		public ActionResult Transaction()
+		public int GetSize(IBitcoinSerializable data, TransactionOptions options)
 		{
-			return View();
+			var bms = new BitcoinStream(Stream.Null, true);
+			bms.TransactionOptions = options;
+			data.ReadWrite(bms);
+			return (int)bms.Counter.WrittenBytes;
+		}
+
+		[Route("transactions/{txId}")]
+		[Route("tx/{txId}")]
+		public async Task<ActionResult> Transaction(uint256 txId)
+		{
+			var tx = await QBit.GetTransaction(txId);
+
+			var size = GetSize(tx.Transaction, TransactionOptions.All);
+			
+			var model = new TransactionModel()
+			{
+				BlockHeight = tx.Block?.Height,
+				Confirmations = tx.Block?.Confirmations ?? 0,
+				Fee = ToString(tx.Fees),
+				Size = ToKB(size),
+				StrippedSize = ToKB(GetSize(tx.Transaction, TransactionOptions.None)),
+				FeeRate = ToSatoshiPerBytes(new FeeRate(tx.Fees, size)),
+				Hash = tx.TransactionId,
+				SeenDate = tx.FirstSeen,
+				Version = (int)tx.Transaction.Version,
+				InputAmount = ToString(tx.SpentCoins.Select(m=>(Money)m.Amount).Sum()),
+				OutputAmount = ToString(tx.ReceivedCoins.Select(m => (Money)m.Amount).Sum()),
+				Inputs = ToParts(tx.SpentCoins),
+				Outputs = ToParts(tx.ReceivedCoins)
+		};
+			return View(model);
+		}
+
+		private string ToSatoshiPerBytes(FeeRate feeRate)
+		{
+			CultureInfo culture = CultureInfo.CurrentCulture;
+			var perByte = feeRate.GetFee(1);
+			return perByte.Satoshi.ToString(culture) + " Sat/Byte";
 		}
 	}
 }

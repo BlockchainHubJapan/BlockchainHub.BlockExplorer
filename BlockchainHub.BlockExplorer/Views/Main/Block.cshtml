@@ -68,7 +68,7 @@
                         <div class="col-md-7">
                             @if(transaction.IsCoinbase)
                             {<span class="transaction-coinbase">coinbase</span>}
-                            <span class="transaction-id">@transaction.Hash</span>
+                            <a href="~/tx/@transaction.Hash"><span class="transaction-id">@transaction.Hash</span></a>
                         </div>
                         <div class="col-md-5">
                             <div class="text-right md-text-left">
