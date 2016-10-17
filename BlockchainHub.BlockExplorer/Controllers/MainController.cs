@@ -94,12 +94,53 @@ namespace BlockchainHub.BlockExplorer.Controllers
 		}
 
 		[Route("addresses")]
-		public ActionResult Address()
+		[Route("a/{address}")]
+		public async Task<ActionResult> Address(string address, int count = 10)
 		{
-			return View();
+			var btcAddress = BitcoinAddress.Create(address);
+			var balances = QBit.GetBalance(btcAddress);
+			var summary = QBit.GetBalanceSummary(btcAddress);
+			await Task.WhenAll(balances, summary);
+			var model = new AddressModel()
+			{
+				Address = btcAddress.ToString(),
+				NextCount = count + 10,
+				ConfirmedBalance = ToString(summary.Result.Confirmed.Amount),
+				TotalReceived = ToString(summary.Result.Spendable.Received),
+				TransactionCount = summary.Result.Spendable.TransactionCount,
+				UnconfirmedBalance = ToString(summary.Result.UnConfirmed.Amount),			
+			};
+			model.Transactions = GetBlockTransactions(balances.Result.Operations.ToArray());
+			return View(model);
 		}
 
-		[Route("blocks/{blockFeature}", Name = "Block")]
+		private List<BlockTransactionModel> GetBlockTransactions(BalanceOperation[] operations)
+		{
+			var txModels = new List<BlockTransactionModel>();
+			int i = 0;
+			foreach(var op in operations)
+			{
+				BlockTransactionModel txModel = new BlockTransactionModel()
+				{
+					Amount = ToString(op.Amount),
+					Hash = op.TransactionId,
+					IsCoinbase = i == 0,
+					Index = i,
+					Income = op.Amount >= Money.Zero
+				};
+
+				txModel.Inputs = ToParts(op.SpentCoins);
+				txModel.Outputs = ToParts(op.ReceivedCoins);
+
+				txModels.Add(txModel);
+				i++;
+			}
+
+			return txModels;
+		}
+
+		[Route("blocks/{blockFeature}")]
+		[Route("b/{blockFeature}", Name = "Block")]
 		public async Task<ActionResult> Block(BlockFeature blockFeature, int count = 5)
 		{
 			count = Math.Max(0, count);
@@ -127,9 +168,17 @@ namespace BlockchainHub.BlockExplorer.Controllers
 				TransactionCount = block.Block.Transactions.Count
 			};
 
+			var txModels = GetBlockTransactions(transactions);
+			model.Transactions = txModels;
+			return View(model);
+		}
+
+		private List<BlockTransactionModel> GetBlockTransactions(GetTransactionResponse[] transactions)
+		{
+			var txModels = new List<BlockTransactionModel>();
 			int i = 0;
 			foreach(var tx in transactions)
-			{
+			{				
 				BlockTransactionModel txModel = new BlockTransactionModel()
 				{
 					Amount = ToString(tx.ReceivedCoins.Select(c => (Money)c.Amount).Sum()),
@@ -142,10 +191,11 @@ namespace BlockchainHub.BlockExplorer.Controllers
 				txModel.Inputs = ToParts(tx.SpentCoins);
 				txModel.Outputs = ToParts(tx.ReceivedCoins);
 
-				model.Transactions.Add(txModel);
+				txModels.Add(txModel);
 				i++;
 			}
-			return View(model);
+
+			return txModels;
 		}
 
 		private List<BlockTransactionPartModel> ToParts(List<ICoin> coins)
@@ -198,6 +248,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 
 		[Route("transactions/{txId}")]
 		[Route("tx/{txId}")]
+		[Route("t/{txId}")]
 		public async Task<ActionResult> Transaction(uint256 txId)
 		{
 			var tx = await QBit.GetTransaction(txId);

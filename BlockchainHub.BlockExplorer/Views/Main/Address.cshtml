@@ -1,4 +1,4 @@
-﻿
+﻿@model BlockchainHub.BlockExplorer.Models.AddressModel
 @{
     ViewBag.Title = "Address";
     Layout = "~/Views/_LayoutPage.cshtml";
@@ -6,16 +6,16 @@
 }
 
 <div class="website-container">
-    <div class="navigator">Home &nbsp/ &nbspAddress: 1KkBAX1Kqsb6pWrfFN9SHAceSfBe1T86Qf</div>
+    <div class="navigator">Home &nbsp/ &nbspAddress: @Model.Address</div>
 
     <div class="panel panel-custom">
         <div class="panel-heading">
             <div class="row">
                 <div class="col-sm-6">
-                    <div class="panel-heading-address-left">1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP</div>
+                    <div class="panel-heading-address-left">@Model.Address</div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="panel-heading-address-right text-right sm-text-left">9,744.71502887 BTC</div>
+                    <div class="panel-heading-address-right text-right sm-text-left">@Model.TotalReceived</div>
                 </div>
             </div>
 
@@ -23,10 +23,10 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="bitcoin-address-info-record"><strong>Confirmed Balance</strong><span class="float-right color-gray">0.00 BTC</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Total received</strong><span class="float-right color-gray">13.2475153 BTC</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Transactions</strong><span class="float-right color-gray">426320</span></div>
-                    <div class="bitcoin-address-info-record"><strong>Unconfirmed</strong><span class="float-right color-gray">0.00 BTC</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Confirmed Balance</strong><span class="float-right color-gray">@Model.ConfirmedBalance</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Total received</strong><span class="float-right color-gray">@Model.TotalReceived</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Transactions</strong><span class="float-right color-gray">@Model.TransactionCount</span></div>
+                    <div class="bitcoin-address-info-record"><strong>Unconfirmed</strong><span class="float-right color-gray">@Model.UnconfirmedBalance</span></div>
                     <div class="report-an-issue-container"><a href="#" class="report-an-issue"><div class="report-issue-img"></div>Report an issue</a></div>
                 </div>
                 <div class="col-md-6">
@@ -39,320 +39,25 @@
         </div>
     </div>
 
-    <div class="text-big">TRANSACTIONS <span class="text-small">(for Block 426320)</span></div>
-
-
-
-
-
-
-
+    <div class="text-big">TRANSACTIONS</div>
+    
     <div class="panel-group accordion-custom" id="accordion">
-        <div class="panel panel-default accordion-panel-blue">
-            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</div>
-                        <div class="transaction-date"><img src="img/clock-icon.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                            <div class="transaction-confirmations">4,644 Confirmations</div>
+        @foreach(var transaction in Model.Transactions)
+        {
+            <div class="panel panel-default @(transaction.Income ? "accordion-panel-red" : "accordion-panel-blue")">
+                <div class="panel-heading c-1" data-parent="#accordion">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <a href="~/tx/@transaction.Hash"><span class="transaction-id">@transaction.Hash</span></a>
                         </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <hr>
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
+                        <div class="col-md-5">
+                            <div class="text-right md-text-left">
+                                <div class="transaction-btc">@transaction.Amount</div>
+                            </div>
                         </div>
-
-                        <div class="col-lg-2">
-                            0.00003 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00008 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-                    <div class="btn-arrow-right"></div>
+                    </div>                    
                 </div>
             </div>
-        </div>
-
-        <div class="panel panel-default accordion-panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</div>
-                        <div class="transaction-date"><img src="img/clock-icon.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                            <div class="transaction-confirmations">4,644 Confirmations</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <hr>
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00003 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00008 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-                    <div class="btn-arrow-right"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default accordion-panel-blue">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</div>
-                        <div class="transaction-date"><img src="img/clock-icon.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                            <div class="transaction-confirmations">4,644 Confirmations</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse3" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <hr>
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00003 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00008 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-                    <div class="btn-arrow-right"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default accordion-panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</div>
-                        <div class="transaction-date"><img src="img/clock-icon.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                            <div class="transaction-confirmations">4,644 Confirmations</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse4" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <hr>
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00003 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00008 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-                    <div class="btn-arrow-right"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="panel panel-default accordion-panel-blue">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-md-7">
-                        <div class="transaction-id">35dd9ff50c527812116fdf8c9907acaffc415f1c4150cc2e4165acede3461ea2</div>
-                        <div class="transaction-date"><img src="img/clock-icon.png" /><span>Aug 22, 2016 9:45:54 AM</span></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="text-right md-text-left">
-                            <div class="transaction-btc">13.2475153 BTC</div>
-                            <div class="transaction-confirmations">4,644 Confirmations</div>
-                        </div>
-                    </div>
-                </div>
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><div class="accordion-arrow arrow-double"></div></a>
-            </div>
-            <div id="collapse5" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <hr>
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00003 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-
-                    <div class="row accordion-row-margin-bot">
-                        <div class="col-lg-4">
-                            <div class="btn-arrow-left"></div>
-                            1KkVpAynsVc14zSoCPcAXes2BMFjFjcwsP
-                        </div>
-
-                        <div class="col-lg-2">
-                            0.00008 BTC
-                        </div>
-
-                        <div class="col-lg-4">
-                            1LFzkpCPrhzrdzK5thqMg3yS3s14dsG854
-                        </div>
-
-                        <div class="col-lg-2 text-right lg-text-left">
-                            0.10274575
-                        </div>
-                    </div>
-                    <div class="btn-arrow-right"></div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
-
-    <div class="text-center load-more-container"><span class="load-more noselect">Load more</span></div>
 </div>

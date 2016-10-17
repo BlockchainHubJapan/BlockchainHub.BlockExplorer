@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="ModelBinders\BlockFeatureModelBinder.cs" />
     <Compile Include="ModelBinders\UInt256ModelBinder.cs" />
+    <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\BlockModel.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\TransactionModel.cs" />

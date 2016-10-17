@@ -65,7 +65,7 @@
                     <div class="col-lg-4 color-green font-bold">
                         @if(input != null)
                         {<div class="btn-arrow-left"></div>}
-                        @(input == null ? " " : input.ScriptPubKey)
+                        <a href="~/a/@(input == null ? " " : input.ScriptPubKey)">@(input == null ? " " : input.ScriptPubKey)</a>
                     </div>
 
                     <div class="col-lg-2 font-bold font-gray">
@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="col-lg-4 font-gray">
-                        @(output == null ? " " : output.ScriptPubKey)
+                        <a href="~/a/@(output == null ? " " : output.ScriptPubKey)">@(output == null ? " " : output.ScriptPubKey)</a>
                     </div>
 
                     <div class="col-lg-2 text-right lg-text-left font-gray">

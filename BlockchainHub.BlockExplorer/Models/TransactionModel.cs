@@ -1,4 +1,5 @@
 ﻿using NBitcoin;
+using QBitNinja.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Web;
 
 namespace BlockchainHub.BlockExplorer.Models
 {
+	
 	public class TransactionModel
 	{
 		public string InputAmount

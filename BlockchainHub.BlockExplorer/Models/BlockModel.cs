@@ -1,4 +1,5 @@
 ﻿using NBitcoin;
+using QBitNinja.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,12 @@ namespace BlockchainHub.BlockExplorer.Models
 			Inputs = new List<BlockTransactionPartModel>();
 			Outputs = new List<BlockTransactionPartModel>();
 		}
+
+		public bool Income
+		{
+			get;
+			set;
+		}
 		public uint256 Hash
 		{
 			get;
@@ -129,6 +136,7 @@ namespace BlockchainHub.BlockExplorer.Models
 			internal set;
 		}
 	}
+
 	public class BlockTransactionPartModel
 	{
 		public string ScriptPubKey
