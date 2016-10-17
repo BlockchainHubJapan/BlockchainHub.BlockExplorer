@@ -1,11 +1,16 @@
-﻿using BlockchainHub.BlockExplorer.Models;
+﻿using Gma.QrCodeNet.Encoding.Windows.Forms;
+using System.Drawing;
+using System.IO;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Threading;
+using BlockchainHub.BlockExplorer.Models;
 using NBitcoin;
 using QBitNinja.Client;
 using QBitNinja.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -171,6 +176,35 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			var txModels = GetBlockTransactions(transactions);
 			model.Transactions = txModels;
 			return View(model);
+		}
+
+		[Route("qr/{bitcoinAddress}")]
+		public ActionResult GetAddressQR(string bitcoinAddress)
+		{
+			BitcoinAddress.Create(bitcoinAddress); //anti ddos
+			QrCodeImgControl control = new QrCodeImgControl();
+			control.QuietZoneModule = Gma.QrCodeNet.Encoding.Windows.Render.QuietZoneModules.Zero;
+			control.ErrorCorrectLevel = Gma.QrCodeNet.Encoding.ErrorCorrectionLevel.H;
+			control.BackColor = System.Drawing.Color.White;
+			control.Width = 200;
+			control.Height = 200;
+			control.Text = bitcoinAddress.ToString();
+			Bitmap bitmap = new Bitmap(control.Width, control.Height);
+			control.DrawToBitmap(bitmap, new Rectangle(0, 0, control.Width, control.Height));
+			var bytes = ImageToByte2(bitmap);
+			return this.File(bytes, "image/jpeg");
+		}
+		public static byte[] ImageToByte2(Bitmap img)
+		{
+			byte[] byteArray = new byte[0];
+			using(MemoryStream stream = new MemoryStream())
+			{
+				img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+				stream.Close();
+
+				byteArray = stream.ToArray();
+			}
+			return byteArray;
 		}
 
 		private List<BlockTransactionModel> GetBlockTransactions(GetTransactionResponse[] transactions)
