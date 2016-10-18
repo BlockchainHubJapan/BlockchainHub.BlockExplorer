@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using NBitcoin.DataEncoders;
 
 namespace BlockchainHub.BlockExplorer.Controllers
 {
@@ -81,7 +82,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			}
 			else if(ago.TotalHours < 1.0)
 			{
-				result =(int)(ago.TotalMinutes) + " minutes ago";
+				result = (int)(ago.TotalMinutes) + " minutes ago";
 			}
 			else
 			{
@@ -102,18 +103,30 @@ namespace BlockchainHub.BlockExplorer.Controllers
 		[Route("a/{address}")]
 		public async Task<ActionResult> Address(string address, int count = 10)
 		{
-			var btcAddress = BitcoinAddress.Create(address);
-			var balances = QBit.GetBalance(btcAddress);
-			var summary = QBit.GetBalanceSummary(btcAddress);
+			string nice = address;
+			var balanceSelector = new BalanceSelector(address);
+			Script script = null;
+			if(nice.StartsWith("0x"))
+			{
+				script = new Script(Encoders.Hex.DecodeData(nice.Substring(2, nice.Length - 2)));
+			}
+			if(address.Contains("OP_"))
+			{
+				script = new Script(address);
+				balanceSelector = new BalanceSelector(script);
+			}
+			nice = script?.GetDestinationAddress(QBit.Network)?.ToString() ?? script?.ToString() ?? nice;
+			var balances = QBit.GetBalance(balanceSelector);
+			var summary = QBit.GetBalanceSummary(balanceSelector);
 			await Task.WhenAll(balances, summary);
 			var model = new AddressModel()
 			{
-				Address = btcAddress.ToString(),
+				Address = nice,
 				NextCount = count + 10,
 				ConfirmedBalance = ToString(summary.Result.Confirmed.Amount),
 				TotalReceived = ToString(summary.Result.Spendable.Received),
 				TransactionCount = summary.Result.Spendable.TransactionCount,
-				UnconfirmedBalance = ToString(summary.Result.UnConfirmed.Amount),			
+				UnconfirmedBalance = ToString(summary.Result.UnConfirmed.Amount),
 			};
 			model.Transactions = GetBlockTransactions(balances.Result.Operations.ToArray());
 			return View(model);
@@ -212,7 +225,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			var txModels = new List<BlockTransactionModel>();
 			int i = 0;
 			foreach(var tx in transactions)
-			{				
+			{
 				BlockTransactionModel txModel = new BlockTransactionModel()
 				{
 					Amount = ToString(tx.ReceivedCoins.Select(c => (Money)c.Amount).Sum()),
@@ -288,7 +301,7 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			var tx = await QBit.GetTransaction(txId);
 
 			var size = GetSize(tx.Transaction, TransactionOptions.All);
-			
+
 			var model = new TransactionModel()
 			{
 				BlockHeight = tx.Block?.Height,
@@ -300,11 +313,11 @@ namespace BlockchainHub.BlockExplorer.Controllers
 				Hash = tx.TransactionId,
 				SeenDate = tx.FirstSeen,
 				Version = (int)tx.Transaction.Version,
-				InputAmount = ToString(tx.SpentCoins.Select(m=>(Money)m.Amount).Sum()),
+				InputAmount = ToString(tx.SpentCoins.Select(m => (Money)m.Amount).Sum()),
 				OutputAmount = ToString(tx.ReceivedCoins.Select(m => (Money)m.Amount).Sum()),
 				Inputs = ToParts(tx.SpentCoins),
 				Outputs = ToParts(tx.ReceivedCoins)
-		};
+			};
 			return View(model);
 		}
 
