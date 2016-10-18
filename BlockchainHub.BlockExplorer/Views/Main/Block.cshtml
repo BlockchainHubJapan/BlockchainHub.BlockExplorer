@@ -94,14 +94,14 @@
                                 <div class="row accordion-row-margin-bot">
                                     
                                     <div class="col-lg-4 color-blue">
-                                        @(input == null ? " " : input.ScriptPubKey)
+                                        <a href="~/a/@(input == null ? " " : input.ScriptPubKey)">@(input == null ? " " : input.ScriptPubKey)</a>
                                     </div>
 
                                     <div class="col-lg-2" style="text-align:end">
                                         @(input == null ? " " : "-" + input.Amount)
                                     </div>
                                     <div class="col-lg-4 color-blue">
-                                        @(output == null ? " " : output.ScriptPubKey)
+                                        <a href="~/a/@(output == null ? " " : output.ScriptPubKey)">@(output == null ? " " : output.ScriptPubKey)</a>
                                     </div>
 
                                     <div class="col-lg-2 text-right lg-text-left" style="text-align:end;padding-right: 55px;">
