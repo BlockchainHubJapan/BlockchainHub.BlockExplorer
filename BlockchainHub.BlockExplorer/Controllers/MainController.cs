@@ -46,7 +46,55 @@ namespace BlockchainHub.BlockExplorer.Controllers
 			count = Math.Max(0, count);
 			count = Math.Min(50, count);
 			if(!string.IsNullOrWhiteSpace(search))
+			{
+				search = search.Trim();
+				if(search.StartsWith("0x") || search.Contains("OP_"))
+				{
+					return RedirectToAction("Address", new
+					{
+						address = search
+					});
+				}
+				try
+				{
+					BitcoinAddress.Create(search, QBit.Network);
+					return RedirectToAction("Address", new
+					{
+						address = search
+					});
+				}
+				catch { }
+
+				if(search.Length == 32 * 2)
+				{
+					if(search.StartsWith("0000000000"))
+					{
+						return RedirectToAction("Block", new
+						{
+							blockFeature = search
+						});
+					}
+					else
+					{
+						return RedirectToAction("Transaction", new
+						{
+							txId = search
+						});
+					}
+				}
+
+				try
+				{
+
+					BlockFeature.Parse(search);
+					return RedirectToAction("Block", new
+					{
+						blockFeature = search
+					});
+				}
+				catch { }
 				return View();
+			}
 
 			var responses =
 				await Task.WhenAll(Enumerable

@@ -44,7 +44,7 @@
     <div class="panel-group accordion-custom" id="accordion">
         @foreach(var transaction in Model.Transactions)
         {
-            <div class="panel panel-default @(transaction.Income ? "accordion-panel-red" : "accordion-panel-blue")">
+            <div class="panel panel-default @(transaction.Income ? "accordion-panel-blue" : "accordion-panel-red")">
                 <div class="panel-heading c-1" data-parent="#accordion">
                     <div class="row">
                         <div class="col-md-7">
