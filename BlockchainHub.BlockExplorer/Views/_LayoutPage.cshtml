@@ -23,7 +23,7 @@
                 <div class="header-default-view">
                     <div class="navbar navbar-static-top">
                         <div class="navbar-header">
-                            <a href="~/" class="navbar-brand" onclick='location.reload(true); return false;'>
+                            <a href="/" class="navbar-brand">
                                 <img class="website-logo" src="~/img/logo.png" />
                             </a>
                             <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
@@ -34,20 +34,23 @@
                         </div>
                         <div class="collapse navbar-collapse navHeaderCollapse">
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="active"><a href="#">API</a></li>
-                                <li><a href="#">EXPLORER</a></li>
-                                <li class="show-dropdown-menu">
-                                    <a data-toggle="collapse" data-target=".custom-dropdown-menu" href="#">BTC<span class="arrow"></span></a>
-                                    <ul class="custom-dropdown-menu">
-                                        <div class="add-space"></div>
-                                        <div class="white-block">
-                                            <li><a href="#">AUD 235</a></li>
-                                            <li><a href="#">CAD 335</a></li>
-                                            <li><a href="#">USD 235</a></li>
-                                            <li><a href="#">EUR 214</a></li>
-                                        </div>
-                                    </ul>
-                                </li>
+                                <li class="active"><a href="http://docs.qbitninja.apiary.io/">API</a></li>
+                                @if(this.Request.Url.Host.StartsWith("tbtc"))
+                                {<li><a href="http://btc.blockchainhub.co.jp/">TO MAINNET</a></li>}
+                                else
+                                {<li><a href="http://tbtc.blockchainhub.co.jp/">TO TESTNET</a></li>}
+                                    @*<li class="show-dropdown-menu">
+                                        <a data-toggle="collapse" data-target=".custom-dropdown-menu" href="#">BTC<span class="arrow"></span></a>
+                                        <ul class="custom-dropdown-menu">
+                                            <div class="add-space"></div>
+                                            <div class="white-block">
+                                                <li><a href="#">AUD 235</a></li>
+                                                <li><a href="#">CAD 335</a></li>
+                                                <li><a href="#">USD 235</a></li>
+                                                <li><a href="#">EUR 214</a></li>
+                                            </div>
+                                        </ul>
+                                    </li>*@
                                 @if(ViewBag.HideSearchButton == null || !ViewBag.HideSearchButton)
                                 {
                                     <li>
@@ -69,7 +72,7 @@
                                 </form>
                                 <img class="search-black-main" src="~/img/search-black.png" />
                             </div>
-                            <div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>
+                            @*<div class="new-to-bitcoin"><a href="#">New to bitcoin?</a><div></div>|<div></div><a href="#">What is ether?</a></div>*@
                         </div>}
                     else
                     {
@@ -100,47 +103,47 @@
                     <div class="copyright">© 2016 BlockchainHub</div>
                 </div>
 
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-menu-header">COMPANY</div>
-                    <div class="footer-menu-item"><a href="#">About us</a></div>
-                    <div class="footer-menu-item"><a href="#">Services</a></div>
-                    <div class="footer-menu-item"><a href="#">FAQ</a></div>
-                    <div class="footer-menu-item"><a href="#">Contact</a></div>
-                </div>
-
-                <div class="col-lg-3 col-sm-6">
-                    <div class="footer-menu-header">LEARN</div>
-                    <div class="footer-menu-item"><a href="#">Buy Bitcoin</a></div>
-                    <div class="footer-menu-item"><a href="#">Buy ether</a></div>
-                    <div class="footer-menu-item"><a href="#">Supported countries</a></div>
-                    <div class="footer-menu-item"><a href="#">Status</a></div>
-                </div>
-
-                <div class="col-lg-2 col-sm-6">
-                    <div class="footer-menu-header">SOCIAL MEDIA</div>
-                    <div class="footer-menu-item"><a href="#">Facebook</a></div>
-                    <div class="footer-menu-item"><a href="#">Linkedin</a></div>
-                    <div class="footer-menu-item"><a href="#">Twitter</a></div>
-                    <div class="footer-menu-item"><a href="#">Google Plus</a></div>
-                </div>
-
-                <div class="col-lg-2 col-sm-6">
-                    <div class="text-right align-center-lg">
-                        <div class="footer-menu-header" style="padding-right: 12px">LANGUAGES</div>
-                        <span class="languages">
-                            <select>
-                                <option>English</option>
-                                <option>Japanese</option>
-                            </select>
-
-                            <div class="languages-hover">
-                                <div><a href="#"><strong>English</strong></a></div>
-                                <div><a href="#">Japanese</a></div>
-                            </div>
-                        </span>
-
+                @*<div class="col-lg-2 col-sm-6">
+                        <div class="footer-menu-header">COMPANY</div>
+                        <div class="footer-menu-item"><a href="#">About us</a></div>
+                        <div class="footer-menu-item"><a href="#">Services</a></div>
+                        <div class="footer-menu-item"><a href="#">FAQ</a></div>
+                        <div class="footer-menu-item"><a href="#">Contact</a></div>
                     </div>
-                </div>
+
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="footer-menu-header">LEARN</div>
+                        <div class="footer-menu-item"><a href="#">Buy Bitcoin</a></div>
+                        <div class="footer-menu-item"><a href="#">Buy ether</a></div>
+                        <div class="footer-menu-item"><a href="#">Supported countries</a></div>
+                        <div class="footer-menu-item"><a href="#">Status</a></div>
+                    </div>
+
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="footer-menu-header">SOCIAL MEDIA</div>
+                        <div class="footer-menu-item"><a href="#">Facebook</a></div>
+                        <div class="footer-menu-item"><a href="#">Linkedin</a></div>
+                        <div class="footer-menu-item"><a href="#">Twitter</a></div>
+                        <div class="footer-menu-item"><a href="#">Google Plus</a></div>
+                    </div>
+
+                    <div class="col-lg-2 col-sm-6">
+                        <div class="text-right align-center-lg">
+                            <div class="footer-menu-header" style="padding-right: 12px">LANGUAGES</div>
+                            <span class="languages">
+                                <select>
+                                    <option>English</option>
+                                    <option>Japanese</option>
+                                </select>
+
+                                <div class="languages-hover">
+                                    <div><a href="#"><strong>English</strong></a></div>
+                                    <div><a href="#">Japanese</a></div>
+                                </div>
+                            </span>
+
+                        </div>
+                    </div>*@
             </div>
         </div>
     </div>
