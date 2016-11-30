@@ -211,12 +211,15 @@ namespace BlockchainHub.BlockExplorer.Controllers
 		{
 			count = Math.Max(0, count);
 			var block = await QBit.GetBlock(blockFeature, false, true);
+			if(block == null)
+				return RedirectToAction("Index");
 			count = Math.Min(block.Block.Transactions.Count, count);
 			var transactions = await Task.WhenAll(Enumerable
 				.Range(0, count)
 				.Select(ii => QBit.GetTransaction(block.Block.Transactions[ii].GetHash()))
 				.ToArray());
-
+			if(transactions.Any(t => t == null))
+				return RedirectToAction("Index");
 			BlockModel model = new BlockModel()
 			{
 				NextCount = count == block.Block.Transactions.Count ? 0 : Math.Min(block.Block.Transactions.Count, count + 5),
